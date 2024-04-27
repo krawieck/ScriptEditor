@@ -12,32 +12,31 @@ import UniformTypeIdentifiers
 @main
 struct ScriptEditorApp: App {
     var body: some Scene {
-        DocumentGroup(editing: .itemDocument, migrationPlan: ScriptEditorMigrationPlan.self) {
-            ContentView()
+        DocumentGroup(newDocument: ScriptFile()) { file in
+            ContentView(file: file.$document, fileURL: file.fileURL)
         }
     }
 }
 
-extension UTType {
-    static var itemDocument: UTType {
-        UTType(importedAs: "com.example.item-document")
+/// inspo: `https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-a-document-based-app-using-filedocument-and-documentgroup
+struct ScriptFile: FileDocument {
+    static let readableContentTypes = [UTType.sourceCode]
+    var content: String = ""
+    
+    init(initialContent content: String = "") {
+        self.content = content
     }
-}
-
-struct ScriptEditorMigrationPlan: SchemaMigrationPlan {
-    static var schemas: [VersionedSchema.Type] = [
-        ScriptEditorVersionedSchema.self,
-    ]
-
-    static var stages: [MigrationStage] = [
-        // Stages of migration between VersionedSchema, if required.
-    ]
-}
-
-struct ScriptEditorVersionedSchema: VersionedSchema {
-    static var versionIdentifier = Schema.Version(1, 0, 0)
-
-    static var models: [any PersistentModel.Type] = [
-        Item.self,
-    ]
+    
+    init(configuration: ReadConfiguration) throws {
+        if let data = configuration.file.regularFileContents {
+            content = String(decoding: data, as: UTF8.self)
+        } else {
+            throw CocoaError(.fileReadCorruptFile)
+        }
+    }
+    
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        let data = Data(content.utf8)
+        return FileWrapper(regularFileWithContents: data)
+    }
 }
