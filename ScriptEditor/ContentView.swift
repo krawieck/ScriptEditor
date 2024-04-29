@@ -14,78 +14,90 @@ struct ContentView: View {
     @Binding var file: ScriptFile
     var fileURL: URL?
     
-    @State var isRunning: Bool = false
+    var isRunning: Bool {
+        process?.isRunning ?? false
+    }
     @State var sidebarIsShown: Bool = true
+    
+    @State var error: LocalizedError? = nil
+    @State var errorIsPresented = false
+    
+    @State var process: ScriptRunner?
     
     var body: some View {
         TextEditor(text: $file.content)
             .fontDesign(.monospaced)
             .toolbarRole(.editor)
             .toolbar {
-                Button(action: start, label: {
-                    Label("Start", systemImage: "play.fill")
-                })
-                Button(action: stop, label: {
-                    Label("Stop", systemImage: "stop.fill")
-                }).disabled(true)
-                
-            
-               
-                
-            }.inspector(isPresented: $sidebarIsShown) {
-                Text("hello :)")
-                    .toolbar {
-                        Spacer()
-                        Button(action: toggleSidebar) {
-                            Label("Toggle running window", systemImage: "apple.terminal.fill")
-                        }
+                if let exitCode = process?.exitCode {
+                    if exitCode == 0 {
+                        Label("Success", systemImage: "checkmark.circle")
+                            .foregroundStyle(.green)
+                            .help("exit code: \(exitCode)")
+                    } else {
+                        Label("Error", systemImage: "xmark.circle")
+                            .foregroundStyle(.red)
+                            .help("exit code: \(exitCode)")
                     }
-                    .inspectorColumnWidth(min: 300, ideal: 500, max: 700) // TODO: use GeometryReader to make max 1/2 of the width of the window
+                }
+                if isRunning {
+                    ProgressView()
+                        .controlSize(.small)
+                }
             }
+            .inspector(isPresented: $sidebarIsShown) {
+                ScrollView {
+                    Text(process?.dataString ?? "<output will show up here>")
+                        .textSelection(.enabled)
+                        .monospaced()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        
+                }
+                
+                .toolbar {
+                    Button(action: start) {
+                        Label("Start", systemImage: "play.fill")
+                    }
+                    Button(action: stop) {
+                        Label("Stop", systemImage: "stop.fill")
+                    }.disabled(!isRunning)
+                    Spacer()
+                    Button(action: toggleSidebar) {
+                        Label("Toggle running window", systemImage: "apple.terminal.fill")
+                    }
+                }
+                .inspectorColumnWidth(min: 300, ideal: 500, max: 700) // TODO: use GeometryReader to make max 1/2 of the width of the window
+            }//.alert(isPresented: $errorIsPresented, error: error, actions: {}) // TODO: error alert when the file doesnt have the supported format
     }
-
+    
     private func toggleSidebar() {
         sidebarIsShown.toggle()
         
     }
     
     private func save() {
+        // TODO: can i do it some other way?
         NSApp.sendAction(#selector(NSDocument.save(_:)), to: nil, from: nil)
     }
     
     private func start() {
-//        save()
+        save()
+        
         if let fileURL {
-            let ext = fileURL.pathExtension
-            
-            
+            process = ScriptRunner(fileURL: fileURL)
+            process!.run()
         }
-        // save
-        // if kotlin then ... else if swift then ... else ...wtf?
     }
     
     private func stop() {
+        if let process {
+            process.stop()
+        }
         
-    }
-    
-    private func addItem() {
-//        withAnimation {
-//            let newItem = Item(timestamp: Date())
-//            modelContext.insert(newItem)
-//        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-//        withAnimation {
-//            for index in offsets {
-//                modelContext.delete(items[index])
-//            }
-//        }
     }
 }
 
 #Preview {
     ContentView(file: .constant(ScriptFile(initialContent: "textt")))
-        
-//        .modelContainer(for: Item.self, inMemory: true)
 }
