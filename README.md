@@ -12,3 +12,5 @@ open ScriptEditor/ScriptEditor.xcodeproj/
 ```
 
 Click run button to run the app. The dependencies should download automatically.
+
+The project was tested on macOS Sonoma 14.4.1 on a mac with M1 chip. 
