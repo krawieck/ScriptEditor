@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		7B4C6F182BE0168B004F8EC0 /* ScriptRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C6F172BE0168B004F8EC0 /* ScriptRunner.swift */; };
-		7BA0F8DE2BDE763E000BD87A /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0F8DD2BDE763E000BD87A /* ContentViewModel.swift */; };
+		7BA520A72BE27431003A3335 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA520A62BE27431003A3335 /* EditorView.swift */; };
+		7BA520AA2BE41E25003A3335 /* SwiftIDEUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520A92BE41E25003A3335 /* SwiftIDEUtils */; };
+		7BA520AE2BE4285E003A3335 /* SwiftOperators in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520AD2BE4285E003A3335 /* SwiftOperators */; };
+		7BA520B02BE4285E003A3335 /* SwiftParser in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520AF2BE4285E003A3335 /* SwiftParser */; };
+		7BA520B22BE4285E003A3335 /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520B12BE4285E003A3335 /* SwiftSyntax */; };
 		7BF37C5C2BD541C700474404 /* ScriptEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF37C5B2BD541C700474404 /* ScriptEditorApp.swift */; };
 		7BF37C5E2BD541C700474404 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF37C5D2BD541C700474404 /* ContentView.swift */; };
 		7BF37C622BD541C800474404 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BF37C612BD541C800474404 /* Assets.xcassets */; };
@@ -17,7 +21,7 @@
 
 /* Begin PBXFileReference section */
 		7B4C6F172BE0168B004F8EC0 /* ScriptRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptRunner.swift; sourceTree = "<group>"; };
-		7BA0F8DD2BDE763E000BD87A /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		7BA520A62BE27431003A3335 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		7BF37C582BD541C700474404 /* ScriptEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF37C5B2BD541C700474404 /* ScriptEditorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptEditorApp.swift; sourceTree = "<group>"; };
 		7BF37C5D2BD541C700474404 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +36,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BA520AE2BE4285E003A3335 /* SwiftOperators in Frameworks */,
+				7BA520B02BE4285E003A3335 /* SwiftParser in Frameworks */,
+				7BA520AA2BE41E25003A3335 /* SwiftIDEUtils in Frameworks */,
+				7BA520B22BE4285E003A3335 /* SwiftSyntax in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,12 +67,12 @@
 			children = (
 				7BF37C5B2BD541C700474404 /* ScriptEditorApp.swift */,
 				7BF37C5D2BD541C700474404 /* ContentView.swift */,
-				7BA0F8DD2BDE763E000BD87A /* ContentViewModel.swift */,
 				7BF37C612BD541C800474404 /* Assets.xcassets */,
 				7BF37C662BD541C800474404 /* Info.plist */,
 				7BF37C672BD541C800474404 /* ScriptEditor.entitlements */,
 				7BF37C632BD541C800474404 /* Preview Content */,
 				7B4C6F172BE0168B004F8EC0 /* ScriptRunner.swift */,
+				7BA520A62BE27431003A3335 /* EditorView.swift */,
 			);
 			path = ScriptEditor;
 			sourceTree = "<group>";
@@ -93,6 +101,12 @@
 			dependencies = (
 			);
 			name = ScriptEditor;
+			packageProductDependencies = (
+				7BA520A92BE41E25003A3335 /* SwiftIDEUtils */,
+				7BA520AD2BE4285E003A3335 /* SwiftOperators */,
+				7BA520AF2BE4285E003A3335 /* SwiftParser */,
+				7BA520B12BE4285E003A3335 /* SwiftSyntax */,
+			);
 			productName = ScriptEditor;
 			productReference = 7BF37C582BD541C700474404 /* ScriptEditor.app */;
 			productType = "com.apple.product-type.application";
@@ -121,6 +135,9 @@
 				Base,
 			);
 			mainGroup = 7BF37C4F2BD541C700474404;
+			packageReferences = (
+				7BA520A82BE41816003A3335 /* XCRemoteSwiftPackageReference "swift-syntax" */,
+			);
 			productRefGroup = 7BF37C592BD541C700474404 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -150,7 +167,7 @@
 				7BF37C5E2BD541C700474404 /* ContentView.swift in Sources */,
 				7BF37C5C2BD541C700474404 /* ScriptEditorApp.swift in Sources */,
 				7B4C6F182BE0168B004F8EC0 /* ScriptRunner.swift in Sources */,
-				7BA0F8DE2BDE763E000BD87A /* ContentViewModel.swift in Sources */,
+				7BA520A72BE27431003A3335 /* EditorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +374,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7BA520A82BE41816003A3335 /* XCRemoteSwiftPackageReference "swift-syntax" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-syntax.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 510.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7BA520A92BE41E25003A3335 /* SwiftIDEUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BA520A82BE41816003A3335 /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftIDEUtils;
+		};
+		7BA520AD2BE4285E003A3335 /* SwiftOperators */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BA520A82BE41816003A3335 /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftOperators;
+		};
+		7BA520AF2BE4285E003A3335 /* SwiftParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BA520A82BE41816003A3335 /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftParser;
+		};
+		7BA520B12BE4285E003A3335 /* SwiftSyntax */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BA520A82BE41816003A3335 /* XCRemoteSwiftPackageReference "swift-syntax" */;
+			productName = SwiftSyntax;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7BF37C502BD541C700474404 /* Project object */;
 }

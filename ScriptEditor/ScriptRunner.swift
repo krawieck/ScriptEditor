@@ -32,9 +32,9 @@ import Foundation
     var isRunning = false
     
     
-    var data: Data = Data()
-    var dataString: String? {
-        String(data: data, encoding: .utf8)
+    var outputData: Data = Data()
+    var outputString: String? {
+        String(data: outputData, encoding: .utf8)
     }
     var exitCode: Int32? = nil
     
@@ -70,7 +70,7 @@ import Foundation
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
                                                object: stdoutHandler, queue: nil) { notification in
             let newData = stdoutHandler.availableData
-            self.data.append(newData)
+            self.outputData.append(newData)
             if !newData.isEmpty {
                 stdoutHandler.waitForDataInBackgroundAndNotify()
             } else {
@@ -81,7 +81,7 @@ import Foundation
         NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
                                                object: stderrHandler, queue: nil) { notification in
             let newData = stderrHandler.availableData
-            self.data.append(newData)
+            self.outputData.append(newData)
             if !newData.isEmpty {
                 stderrHandler.waitForDataInBackgroundAndNotify()
             } else {
@@ -111,7 +111,7 @@ import Foundation
     }
     
     func clear() {
-        data = Data()
+        outputData = Data()
         exitCode = nil
     }
 }
