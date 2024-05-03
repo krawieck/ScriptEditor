@@ -54,8 +54,6 @@ func highlightSwiftKeywords(_ text: String, textStorage: NSTextStorage?) {
 struct EditorTextView: NSViewRepresentable {
     @Binding var text: String
     
-    var font: NSFont?    = .userFixedPitchFont(ofSize: 14)
-    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -92,13 +90,14 @@ extension EditorTextView {
         }
         
         func textDidChange(_ notification: Notification) {
-            print("CHANGE")
             guard let textView = notification.object as? NSTextView else {
                 return
             }
             
             self.parent.text = textView.string
+            let selection = textView.selectedRanges // for some reason next line changes selectedRanges to the end of the line
             highlightSwiftKeywords(textView.string, textStorage: textView.textStorage)
+            textView.selectedRanges = selection
             
         }
         
