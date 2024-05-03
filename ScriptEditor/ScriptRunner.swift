@@ -10,16 +10,16 @@ import Foundation
 @Observable class ScriptRunner {
     init(fileURL: URL) {
         self.fileURL = fileURL
-        
+
         let ext = fileURL.pathExtension
         let path = fileURL.path()
-        
+
         switch ext {
         case "swift":
             executableURL = URL(fileURLWithPath: "/usr/bin/env")
             arguments = ["swift", path]
             return
-            
+
         case "kts":
             executableURL = URL(fileURLWithPath: "kotlinc")
             arguments = ["-script", path]
@@ -30,24 +30,23 @@ import Foundation
     }
     let fileURL: URL
     var isRunning = false
-    
-    
+
     var outputData: Data = Data()
     var outputString: String? {
         String(data: outputData, encoding: .utf8)
     }
     var exitCode: Int32? = nil
-    
+
     private var executableURL: URL
     private var arguments: [String]
-    
+
     private var process: Process = Process()
     private var stdoutPipe: Pipe = Pipe()
     private var stderrPipe: Pipe = Pipe()
-    
+
     private var stdoutHandler: FileHandle? = nil
     private var stderrHandler: FileHandle? = nil
-    
+
     func run() {
         clear()
         process = Process()
@@ -57,18 +56,20 @@ import Foundation
         process.standardError = stderrPipe
         process.executableURL = executableURL
         process.arguments = arguments
-        
+
         stdoutHandler = stdoutPipe.fileHandleForReading
         stderrHandler = stderrPipe.fileHandleForReading
-        
+
         guard let stdoutHandler else { return }
         guard let stderrHandler else { return }
-        
+
         stdoutHandler.waitForDataInBackgroundAndNotify()
         stderrHandler.waitForDataInBackgroundAndNotify()
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
-                                               object: stdoutHandler, queue: nil) { notification in
+
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.NSFileHandleDataAvailable,
+            object: stdoutHandler, queue: nil
+        ) { notification in
             let newData = stdoutHandler.availableData
             self.outputData.append(newData)
             if !newData.isEmpty {
@@ -78,8 +79,10 @@ import Foundation
                 self.exitCode = self.process.terminationStatus
             }
         }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
-                                               object: stderrHandler, queue: nil) { notification in
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.NSFileHandleDataAvailable,
+            object: stderrHandler, queue: nil
+        ) { notification in
             let newData = stderrHandler.availableData
             self.outputData.append(newData)
             if !newData.isEmpty {
@@ -89,13 +92,13 @@ import Foundation
                 self.exitCode = self.process.terminationStatus
             }
         }
-        
+
         isRunning = true
         try! process.run()
-        
+
         return
     }
-    
+
     func stop() {
         if let stdoutHandler {
             try? stdoutHandler.close()
@@ -106,13 +109,12 @@ import Foundation
             self.stderrHandler = nil
         }
         process.terminate()
-        
+
         isRunning = false
     }
-    
+
     func clear() {
         outputData = Data()
         exitCode = nil
     }
 }
-

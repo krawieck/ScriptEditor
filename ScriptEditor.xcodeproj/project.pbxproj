@@ -13,6 +13,9 @@
 		7BA520AE2BE4285E003A3335 /* SwiftOperators in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520AD2BE4285E003A3335 /* SwiftOperators */; };
 		7BA520B02BE4285E003A3335 /* SwiftParser in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520AF2BE4285E003A3335 /* SwiftParser */; };
 		7BA520B22BE4285E003A3335 /* SwiftSyntax in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520B12BE4285E003A3335 /* SwiftSyntax */; };
+		7BA520B42BE57D06003A3335 /* .swift-format in Resources */ = {isa = PBXBuildFile; fileRef = 7BA520B32BE57D06003A3335 /* .swift-format */; };
+		7BA520B72BE57E28003A3335 /* SwiftFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520B62BE57E28003A3335 /* SwiftFormat */; };
+		7BA520B92BE57E28003A3335 /* SwiftFormatConfiguration in Frameworks */ = {isa = PBXBuildFile; productRef = 7BA520B82BE57E28003A3335 /* SwiftFormatConfiguration */; };
 		7BF37C5C2BD541C700474404 /* ScriptEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF37C5B2BD541C700474404 /* ScriptEditorApp.swift */; };
 		7BF37C5E2BD541C700474404 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF37C5D2BD541C700474404 /* ContentView.swift */; };
 		7BF37C622BD541C800474404 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BF37C612BD541C800474404 /* Assets.xcassets */; };
@@ -22,6 +25,7 @@
 /* Begin PBXFileReference section */
 		7B4C6F172BE0168B004F8EC0 /* ScriptRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptRunner.swift; sourceTree = "<group>"; };
 		7BA520A62BE27431003A3335 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		7BA520B32BE57D06003A3335 /* .swift-format */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-format"; sourceTree = "<group>"; };
 		7BF37C582BD541C700474404 /* ScriptEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF37C5B2BD541C700474404 /* ScriptEditorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptEditorApp.swift; sourceTree = "<group>"; };
 		7BF37C5D2BD541C700474404 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,6 +43,8 @@
 				7BA520AE2BE4285E003A3335 /* SwiftOperators in Frameworks */,
 				7BA520B02BE4285E003A3335 /* SwiftParser in Frameworks */,
 				7BA520AA2BE41E25003A3335 /* SwiftIDEUtils in Frameworks */,
+				7BA520B72BE57E28003A3335 /* SwiftFormat in Frameworks */,
+				7BA520B92BE57E28003A3335 /* SwiftFormatConfiguration in Frameworks */,
 				7BA520B22BE4285E003A3335 /* SwiftSyntax in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,6 +55,7 @@
 		7BF37C4F2BD541C700474404 = {
 			isa = PBXGroup;
 			children = (
+				7BA520B32BE57D06003A3335 /* .swift-format */,
 				7BF37C5A2BD541C700474404 /* ScriptEditor */,
 				7BF37C592BD541C700474404 /* Products */,
 			);
@@ -106,6 +113,8 @@
 				7BA520AD2BE4285E003A3335 /* SwiftOperators */,
 				7BA520AF2BE4285E003A3335 /* SwiftParser */,
 				7BA520B12BE4285E003A3335 /* SwiftSyntax */,
+				7BA520B62BE57E28003A3335 /* SwiftFormat */,
+				7BA520B82BE57E28003A3335 /* SwiftFormatConfiguration */,
 			);
 			productName = ScriptEditor;
 			productReference = 7BF37C582BD541C700474404 /* ScriptEditor.app */;
@@ -137,6 +146,7 @@
 			mainGroup = 7BF37C4F2BD541C700474404;
 			packageReferences = (
 				7BA520A82BE41816003A3335 /* XCRemoteSwiftPackageReference "swift-syntax" */,
+				7BA520B52BE57E28003A3335 /* XCRemoteSwiftPackageReference "swift-format" */,
 			);
 			productRefGroup = 7BF37C592BD541C700474404 /* Products */;
 			projectDirPath = "";
@@ -153,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BF37C652BD541C800474404 /* Preview Assets.xcassets in Resources */,
+				7BA520B42BE57D06003A3335 /* .swift-format in Resources */,
 				7BF37C622BD541C800474404 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +395,14 @@
 				minimumVersion = 510.0.1;
 			};
 		};
+		7BA520B52BE57E28003A3335 /* XCRemoteSwiftPackageReference "swift-format" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-format";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 510.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -406,6 +425,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7BA520A82BE41816003A3335 /* XCRemoteSwiftPackageReference "swift-syntax" */;
 			productName = SwiftSyntax;
+		};
+		7BA520B62BE57E28003A3335 /* SwiftFormat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BA520B52BE57E28003A3335 /* XCRemoteSwiftPackageReference "swift-format" */;
+			productName = SwiftFormat;
+		};
+		7BA520B82BE57E28003A3335 /* SwiftFormatConfiguration */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BA520B52BE57E28003A3335 /* XCRemoteSwiftPackageReference "swift-format" */;
+			productName = SwiftFormatConfiguration;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

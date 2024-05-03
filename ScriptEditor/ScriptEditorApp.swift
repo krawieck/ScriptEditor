@@ -5,8 +5,8 @@
 //  Created by Filip Krawczyk on 21/04/2024.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 import UniformTypeIdentifiers
 
 @main
@@ -22,11 +22,11 @@ struct ScriptEditorApp: App {
 struct ScriptFile: FileDocument {
     static let readableContentTypes = [UTType.sourceCode]
     var content: String = ""
-    
+
     init(initialContent content: String = "") {
         self.content = content
     }
-    
+
     init(configuration: ReadConfiguration) throws {
         if let data = configuration.file.regularFileContents {
             content = String(decoding: data, as: UTF8.self)
@@ -34,7 +34,7 @@ struct ScriptFile: FileDocument {
             throw CocoaError(.fileReadCorruptFile)
         }
     }
-    
+
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         let data = Data(content.utf8)
         return FileWrapper(regularFileWithContents: data)
