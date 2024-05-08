@@ -67,7 +67,6 @@ struct EditorTextView: NSViewRepresentable {
     }
 
     func updateNSView(_ view: CustomTextView, context: Context) {
-        view.text = text
         highlightSwiftKeywords(text, textStorage: view.textView.textStorage)
     }
 }
@@ -82,32 +81,15 @@ extension EditorTextView {
             self.parent = parent
         }
 
-        func textDidBeginEditing(_ notification: Notification) {
-            guard let textView = notification.object as? NSTextView else {
-                return
-            }
-
-            self.parent.text = textView.string
-        }
-
         func textDidChange(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else {
                 return
             }
 
-            self.parent.text = textView.string
             let selection = textView.selectedRanges  // for some reason next line changes selectedRanges to the end of the line
             highlightSwiftKeywords(textView.string, textStorage: textView.textStorage)
             textView.selectedRanges = selection
 
-        }
-
-        func textDidEndEditing(_ notification: Notification) {
-            guard let textView = notification.object as? NSTextView else {
-                return
-            }
-
-            self.parent.text = textView.string
         }
     }
 }
