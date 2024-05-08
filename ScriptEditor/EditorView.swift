@@ -97,8 +97,6 @@ extension EditorTextView {
 // MARK: - CustomTextView
 
 final class CustomTextView: NSView {
-    private var font: NSFont?
-
     weak var delegate: NSTextViewDelegate?
 
     var text: String {
