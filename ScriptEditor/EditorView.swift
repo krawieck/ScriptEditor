@@ -89,6 +89,7 @@ extension EditorTextView {
             let selection = textView.selectedRanges  // for some reason next line changes selectedRanges to the end of the line
             highlightSwiftKeywords(textView.string, textStorage: textView.textStorage)
             textView.selectedRanges = selection
+            parent.text = textView.string
 
         }
     }
